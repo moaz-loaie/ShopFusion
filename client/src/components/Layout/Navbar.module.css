@@ -1,0 +1,177 @@
+/* File: client/src/components/Layout/Navbar.module.css */
+.navbar {
+  background-color: #ffffff;
+  color: #333;
+  padding: 0.8rem 0; /* Reduced padding slightly */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1020; /* Ensure it's above most other content */
+  width: 100%;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px; /* Slightly wider container */
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.navLogo {
+  color: #1a1a1a; /* Darker logo color */
+  text-decoration: none;
+  font-size: 1.7rem; /* Slightly adjusted */
+  font-weight: 700; /* Bolder */
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.navMenu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  margin-left: 1.2rem; /* Adjusted spacing */
+}
+
+.navLink {
+  color: #4a4a4a; /* Slightly darker link color */
+  text-decoration: none;
+  padding: 0.6rem 0.9rem; /* Adjusted padding */
+  font-size: 0.95rem; /* Slightly adjusted */
+  font-weight: 500;
+  transition: color 0.25s ease, border-bottom-color 0.25s ease;
+  position: relative;
+  border-bottom: 2px solid transparent; /* For active state underline */
+}
+
+.navLink:hover,
+.navLink.active {
+  color: #007bff;
+  border-bottom-color: #007bff; /* Show underline on hover and active */
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.6rem 0.9rem; /* Match NavLink padding */
+}
+
+.registerButton {
+  background-color: #007bff;
+  color: white !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  border-bottom-color: transparent !important; /* No underline for buttons */
+}
+.registerButton:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.registerButton.active {
+  background-color: #0056b3;
+}
+
+
+.cartLink {
+    display: flex;
+    align-items: center;
+}
+.cartIcon {
+    margin-right: 0.4rem;
+    font-size: 1.2rem; /* Example size */
+}
+.cartCount {
+  background-color: #dc3545; /* Bootstrap danger red */
+  color: white;
+  border-radius: 10px; /* More pill-like */
+  padding: 0.15em 0.6em;
+  font-size: 0.7rem;
+  margin-left: 0.4rem;
+  font-weight: bold;
+  line-height: 1; /* Ensure consistent height */
+}
+
+/* Mobile Menu Styles */
+.mobileMenuToggle {
+  display: none; /* Hidden on desktop */
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobileMenuDrawer {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%; /* Position below navbar */
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Below navbar but above page content */
+  padding: 1rem 0;
+}
+
+.navMenuMobile {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items in mobile menu */
+  margin: 0;
+  padding: 0;
+}
+
+.navMenuMobile .navItem {
+  margin: 0.8rem 0; /* Vertical spacing */
+  width: 100%;
+  text-align: center;
+}
+.navMenuMobile .navLink {
+    display: block; /* Make links take full width */
+    width: 90%;
+    margin: 0 auto;
+    border-bottom: none; /* Remove desktop underline */
+}
+.navMenuMobile .navLink.active {
+    background-color: #f0f0f0; /* Highlight active link */
+    border-radius: 4px;
+}
+.navMenuMobile .registerButton {
+    width: auto; /* Let button size naturally */
+    display: inline-block;
+}
+
+
+@media (max-width: 850px) { /* Breakpoint for mobile menu */
+  .desktopMenu {
+    display: none;
+  }
+  .mobileMenuToggle {
+    display: block;
+  }
+  .mobileMenuDrawer.open, /* Conditional class or direct style */
+  .navbar .mobileMenuDrawer { /* Make sure it's visible when needed */
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+    .navContainer {
+        padding: 0 1rem;
+    }
+    .navLogo {
+        font-size: 1.5rem;
+    }
+}
