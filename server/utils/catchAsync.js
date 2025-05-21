@@ -1,12 +1,15 @@
 /**
- * Wraps async route handlers to catch errors and pass them to the global error handler.
- * Avoids repetitive try...catch blocks in controllers.
- * @param {Function} fn - The async function (controller action) to wrap.
- * @returns {Function} Express middleware function.
+ * Wraps async Express route handlers/middleware to catch rejected promises
+ * and pass them to the Express global error handler (via next(err)).
+ * Avoids repetitive try...catch blocks in every async function.
+ *
+ * @param {Function} fn - The async function (controller action or middleware) to wrap.
+ * @returns {Function} An Express middleware function that executes the async function and catches errors.
  */
 const catchAsync = (fn) => {
   return (req, res, next) => {
-    fn(req, res, next).catch(next); // Catches promise rejections and passes them to next()
+    // Ensure fn call is caught and any rejection passed to next()
+    Promise.resolve(fn(req, res, next)).catch(next);
   };
 };
 

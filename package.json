@@ -1,0 +1,44 @@
+{
+  "name": "shopfusion",
+  "version": "1.0.0",
+  "description": "ShopFusion is a cutting-edge e-commerce platform inspired by industry leaders like Amazon. Our goal is to deliver a robust, scalable, and user-friendly online shopping experience that caters to guests, registered customers, sellers, and administrators—with seamless mobile integration.",
+  "main": "index.js",
+  "private": true,
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:all": "npm install && npm run install:server && npm run install:client",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm start",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "build:client": "cd client && npm run build",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test -- --watchAll=false",
+    "test": "npm run test:server && npm run test:client",
+    "lint:server": "cd server && npm run lint",
+    "lint:client": "cd client && npm run lint",
+    "lint": "npm run lint:server && npm run lint:client",
+    "db:migrate": "cd server && npx sequelize-cli db:migrate",
+    "db:seed": "cd server && npx sequelize-cli db:seed:all",
+    "db:reset": "cd server && npx sequelize-cli db:migrate:undo:all && npm run db:migrate && npm run db:seed",
+    "start": "cd server && npm start",
+    "heroku-postbuild": "npm run install:all && npm run build:client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moaz-loaie/ShopFusion.git"
+  },
+  "author": "moaz_loaie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moaz-loaie/ShopFusion/issues"
+  },
+  "homepage": "https://github.com/moaz-loaie/ShopFusion#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

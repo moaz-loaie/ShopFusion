@@ -1,26 +1,40 @@
-# Node Modules
+# Node dependencies
 node_modules/
-server/node_modules/
-client/node_modules/
+**/node_modules/
 
-# Env files
-.env
-server/.env
-client/.env
+# Build directories
+**/build/
+**/dist/
+/coverage/
+**/coverage/
 
-# Build Folders
-client/build/
-
-# Logs
+# Log files
 logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
+pnpm-debug.log*
 lerna-debug.log*
+*.log.*.[0-9]
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables files
+.env
+.env.*
+!.env.example # Exclude example files from ignore
+**/.env
+**/.env.*
+!**/.env.example
 
 # OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Editor directories and files
@@ -31,3 +45,12 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+*.bak
+
+# Cypress specific
+/client/cypress/videos/
+/client/cypress/screenshots/
+
+# Optional: Test database files (if using SQLite for tests locally)
+*.sqlite
+*.sqlite-journal

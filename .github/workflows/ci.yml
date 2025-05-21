@@ -1,0 +1,221 @@
+# GitHub Actions Workflow for ShopFusion CI/CD
+
+name: ShopFusion CI/CD Pipeline
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [main, develop] # Trigger on pushes to main and develop branches
+  pull_request:
+    branches: [main, develop] # Trigger on pull requests targeting main and develop
+  workflow_dispatch: # Allows manual triggering from the GitHub Actions UI
+
+jobs:
+  # Job for testing, linting, and building the application
+  test-lint-build:
+    name: Test, Lint & Build Application
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    permissions: # Define permissions needed for the job
+      contents: read # To checkout the repository
+      packages: write # To push Docker images to GitHub Container Registry (if used)
+      id-token: write # For OIDC token if deploying to cloud services like AWS/GCP/Azure
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Specify Node.js LTS versions to test against
+
+    services: # Define service containers needed for tests (e.g., a database)
+      postgres_ci: # Name of the service container
+        image: postgres:14-alpine # Use a specific version of PostgreSQL
+        env: # Environment variables for the PostgreSQL service
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: shopfusion_test_ci # Dedicated test database name
+        ports:
+          - 5432:5432 # Map container port to host port (runner's localhost)
+        options:
+          >- # Health check to ensure PostgreSQL is ready before tests run
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Use the latest version of the checkout action
+
+      # Step 2: Setup Node.js environment
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm" # Enable caching for npm dependencies to speed up subsequent runs
+
+      # Step 3: Install root dependencies and workspace dependencies
+      - name: Install All Dependencies (Root, Server, Client)
+        run: npm run install:all # Assumes script in root package.json
+
+      # --- Backend Steps ---
+      - name: Lint Backend Code
+        working-directory: ./server
+        run: npm run lint # Assumes 'lint' script is defined in server/package.json (e.g., using ESLint)
+
+      - name: Wait for PostgreSQL Service to be Ready
+        run: | # Simple wait script; more robust checks can be added
+          echo "Waiting for PostgreSQL to be ready..."
+          timeout 30s bash -c 'until pg_isready -h localhost -p 5432 -U test_user -d shopfusion_test_ci; do sleep 1; done'
+          echo "PostgreSQL is ready."
+
+      - name: Run Backend Database Migrations (Test DB)
+        working-directory: ./server
+        run: npx sequelize-cli db:migrate # This will use the 'test' environment from config.json
+        env: # Environment variables for connecting to the PostgreSQL service container
+          NODE_ENV: test
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_NAME: shopfusion_test_ci
+          DB_HOST: localhost # Service container is accessible via localhost on the runner
+          DB_PORT: 5432 # Port mapped from the service container
+          JWT_SECRET: a_very_secure_ci_test_jwt_secret_that_is_long_enough # Dummy secret for CI
+          LOG_LEVEL: warn # Keep test logs cleaner
+
+      - name: Run Backend Tests
+        working-directory: ./server
+        run: npm test -- --coverage --runInBand # Run tests with coverage, in band if issues with parallel DB access
+        env: # Same environment variables as migrations
+          NODE_ENV: test
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_NAME: shopfusion_test_ci
+          DB_HOST: localhost
+          DB_PORT: 5432
+          JWT_SECRET: a_very_secure_ci_test_jwt_secret_that_is_long_enough
+          LOG_LEVEL: warn
+          # CI: true # Some test runners might behave differently if CI is true
+
+      # --- Frontend Steps ---
+      - name: Lint Frontend Code
+        working-directory: ./client
+        run: npm run lint # Assumes 'lint' script in client/package.json
+
+      - name: Run Frontend Tests
+        working-directory: ./client
+        run: npm test -- --coverage --watchAll=false # Run tests non-interactively and collect coverage
+        env:
+          CI: true # Required by Create React App tests to run in non-watch mode
+
+      # Optional: Build Frontend Application (to ensure build process works)
+      - name: Build Client Application
+        working-directory: ./client
+        run: npm run build
+        env:
+          REACT_APP_API_URL: /api/v1 # Example for monolithic deployment or placeholder
+          # Add any other build-time REACT_APP_* environment variables
+          # CI: false # Set to false if build process requires it (sometimes CI=true changes behavior)
+
+    # Optional: Run E2E Tests (Cypress)
+    # This is more complex as it requires both backend and frontend servers to be running.
+    # Consider a separate job or using tools like 'start-server-and-test'.
+    # - name: Run E2E Tests with Cypress
+    #   working-directory: ./client
+    #   run: npm run cypress:run # Assumes "cypress:run": "cypress run" script
+    #   env:
+    #     # Environment variables for Cypress if needed
+    #     CYPRESS_BASE_URL: http://localhost:3000 # If frontend server is started
+    #     # Backend API must be running and accessible
+
+    # Optional: Upload Test Coverage Reports (e.g., to Codecov or Coveralls)
+    # - name: Upload Backend Coverage to Codecov
+    #   uses: codecov/codecov-action@v4
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }} # Store Codecov token in GitHub secrets
+    #     directory: ./server/coverage/
+    #     fail_ci_if_error: true
+    #     flags: backend # Flag to differentiate coverage reports
+    #     name: backend-coverage
+    #
+    # - name: Upload Frontend Coverage to Codecov
+    #   uses: codecov/codecov-action@v4
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     directory: ./client/coverage/
+    #     fail_ci_if_error: true
+    #     flags: frontend
+    #     name: frontend-coverage
+
+  # --- Optional: Docker Build & Push Job ---
+  # This job would typically run after tests pass, often only on 'main' branch pushes.
+  # build-and-push-docker:
+  #   name: Build & Push Docker Image
+  #   needs: test-lint-build # Depends on the test job passing
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Only on push to main
+
+  #   steps:
+  #   - name: Checkout Repository
+  #     uses: actions/checkout@v4
+
+  #   - name: Set up QEMU (for multi-platform Docker builds, if needed)
+  #     uses: docker/setup-qemu-action@v3
+
+  #   - name: Set up Docker Buildx (builder instance)
+  #     uses: docker/setup-buildx-action@v3
+
+  #   - name: Login to GitHub Container Registry (or other registry)
+  #     uses: docker/login-action@v3
+  #     with:
+  #       registry: ghcr.io # Example: GitHub Container Registry
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN has permissions for GHCR within the repo
+
+  #   - name: Extract metadata (tags, labels) for Docker
+  #     id: meta
+  #     uses: docker/metadata-action@v5
+  #     with:
+  #       images: ghcr.io/${{ github.repository_owner }}/shopfusion # Replace with your image name
+
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v5
+  #     with:
+  #       context: . # Assumes Dockerfile is in the root directory
+  #       # file: ./Dockerfile # Specify Dockerfile path if not in root
+  #       push: true # Actually push the image
+  #       tags: ${{ steps.meta.outputs.tags }} # Use tags generated by metadata-action
+  #       labels: ${{ steps.meta.outputs.labels }} # Use labels generated
+  #       cache-from: type=gha # Enable build cache from GitHub Actions
+  #       cache-to: type=gha,mode=max # Enable build cache to GitHub Actions
+
+  # --- Optional: Deployment Job ---
+  # This job would run after successful build (and potentially Docker push).
+  # deploy-to-production:
+  #   name: Deploy to Production Environment
+  #   needs: build-and-push-docker # Or 'test-lint-build' if not using Docker
+  #   runs-on: ubuntu-latest
+  #   environment: production # Reference a GitHub environment for secrets and protection rules
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+  #   steps:
+  #   - name: Example Deployment to Cloud Platform
+  #     run: |
+  #       echo "Starting deployment to production..."
+  #       # Add actual deployment commands here.
+  #       # This might involve:
+  #       # - Checking out code again or using artifacts.
+  #       # - Using platform-specific CLIs (e.g., `heroku deploy`, `aws ecs deploy`, `gcloud app deploy`).
+  #       # - Running database migrations in the production environment.
+  #       # - Invalidating CDN caches.
+  #       # Example: sshpass -p ${{ secrets.PROD_SSH_PASSWORD }} ssh ${{ secrets.PROD_SSH_USER }}@${{ secrets.PROD_SERVER_IP }} 'cd /var/www/shopfusion && git pull && npm run deploy:prod'
+  #       echo "Deployment script placeholder."
+  #       # Use GitHub secrets for sensitive deployment credentials (e.g., API keys, SSH keys)
+  #   - name: Notify on Success or Failure
+  #     if: always() # Run this step even if previous steps fail
+  #     run: |
+  #       if [ ${{ job.status }} == 'success' ]; then
+  #         echo "Deployment to production Succeeded!"
+  #         # Add notification logic (e.g., Slack, Email)
+  #       else
+  #         echo "Deployment to production Failed!"
+  #         # Add failure notification logic
+  #       fi
