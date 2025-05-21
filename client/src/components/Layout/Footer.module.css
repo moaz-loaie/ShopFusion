@@ -1,0 +1,214 @@
+/* File: client/src/components/Layout/Footer.module.css */
+.footer {
+  background-color: #1a1a1a; /* Darker footer background */
+  color: #b0b0b0; /* Lighter text color for contrast */
+  padding: 4rem 0 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  border-top: 3px solid #007bff; /* Accent color top border */
+}
+
+.footerContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2.5rem;
+}
+
+.footerSection {
+  margin-bottom: 2rem;
+}
+
+.footerLogo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footerAbout {
+  margin-bottom: 1.2rem;
+  color: #d0d0d0; /* Slightly brighter for important text */
+}
+
+.footerTitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+  position: relative;
+  padding-bottom: 0.6rem;
+}
+
+.footerTitle::after { /* Underline effect for titles */
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #007bff; /* Accent color */
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: 0.6rem;
+}
+
+.footerLinks a {
+  color: #b0b0b0;
+  text-decoration: none;
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+
+.footerLinks a:hover {
+  color: #ffffff;
+  padding-left: 5px; /* Slight indent on hover */
+  text-decoration: underline;
+}
+
+/* Social Media Links */
+.socialLinks {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1rem; /* Space between icons */
+}
+
+.socialLinkItem { /* Styling for individual social icons */
+  color: #b0b0b0;
+  font-size: 1.4rem; /* Example size, adjust if using icon library */
+  transition: color 0.25s ease, transform 0.25s ease;
+  text-decoration: none;
+  border: 1px solid #444; /* Example placeholder styling */
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+
+.socialLinkItem:hover {
+  color: #007bff;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Newsletter Form */
+.newsletterForm {
+  display: flex;
+  margin-bottom: 1.5rem;
+  margin-top: 0.8rem;
+}
+
+.newsletterForm input[type="email"] {
+  flex-grow: 1;
+  padding: 0.7rem;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  font-size: 0.9rem;
+}
+.newsletterForm input[type="email"]::placeholder {
+    color: #888;
+}
+
+
+.newsletterForm button {
+  padding: 0.7rem 1.2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  transition: background-color 0.25s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.newsletterForm button:hover {
+  background-color: #0056b3;
+}
+
+.contactDetails p {
+    margin: 0.3rem 0;
+}
+.contactDetails a {
+    color: #0095ff;
+    text-decoration: none;
+}
+.contactDetails a:hover {
+    text-decoration: underline;
+}
+
+
+/* Footer Bottom Bar */
+.footerBottom {
+  border-top: 1px solid #333; /* Darker separator */
+  padding-top: 1.5rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.footerBottom p {
+  margin: 0 0 0.8rem 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.paymentMethods {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #888;
+}
+.paymentIconText { /* Placeholder styling for payment method text */
+    padding: 0.2rem 0.6rem;
+    border: 1px solid #444;
+    border-radius: 3px;
+    background-color: #2a2a2a;
+    color: #aaa;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) { /* Adjust breakpoint for tablet */
+  .footerContainer {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .footerContainer {
+    grid-template-columns: 1fr; /* Stack sections on smaller screens */
+    text-align: center; /* Center content in sections */
+  }
+  .footerTitle::after { /* Center the title underline */
+      left: 50%;
+      transform: translateX(-50%);
+  }
+  .socialLinks {
+      justify-content: center;
+  }
+  .newsletterForm {
+      flex-direction: column;
+      align-items: stretch;
+  }
+  .newsletterForm input[type="email"],
+  .newsletterForm button {
+      border-radius: 4px; /* Full radius for stacked elements */
+      width: 100%;
+      margin-bottom: 0.5rem;
+      box-sizing: border-box;
+  }
+  .newsletterForm button {
+      margin-bottom: 0;
+  }
+}
