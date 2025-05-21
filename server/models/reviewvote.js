@@ -1,26 +1,55 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class ReviewVote extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // A ReviewVote belongs to one Review
+      ReviewVote.belongsTo(models.Review, {
+        foreignKey: 'review_id',
+        as: 'review',
+        onDelete: 'CASCADE'
+      });
+      // A ReviewVote belongs to one User
+      ReviewVote.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        as: 'user',
+        onDelete: 'CASCADE' // Delete vote if user is deleted
+      });
     }
   }
   ReviewVote.init({
-    review_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
-    vote_type: DataTypes.ENUM('helpful', 'not_helpful'),
-    created_at: DataTypes.DATE
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    review_id: {
+      type: DataTypes.INTEGER, allowNull: false,
+      references: { model: 'Reviews', key: 'id' }
+    },
+    user_id: {
+      type: DataTypes.INTEGER, allowNull: false,
+      references: { model: 'Users', key: 'id' }
+    },
+    vote_type: {
+      type: DataTypes.ENUM('helpful', 'not_helpful'), // Consistent with ERD (not helpful)
+      allowNull: false,
+      validate: {
+        isIn: {
+          args: [['helpful', 'not_helpful']],
+          msg: 'Invalid vote type. Must be "helpful" or "not_helpful".'
+        }
+      }
+    },
+    // Timestamps managed by Sequelize
   }, {
     sequelize,
     modelName: 'ReviewVote',
+    tableName: 'ReviewVotes',
+    timestamps: true,
+    indexes: [
+      { fields: ['review_id'] },
+      { fields: ['user_id'] },
+      // Unique constraint: a user can only vote once per review
+      { unique: true, fields: ['review_id', 'user_id'], name: 'review_votes_review_user_uk' }
+    ]
   });
   return ReviewVote;
 };
