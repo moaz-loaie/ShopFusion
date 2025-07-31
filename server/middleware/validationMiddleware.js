@@ -10,8 +10,6 @@ const handleValidationErrors = (req, res, next) => {
       .array()
       .map((e) => `${e.param}: ${e.msg}`)
       .join("; ");
-    // Note: Logging detailed validation errors might expose input data, consider security implications.
-    // logger.warn('Validation errors:', { path: req.originalUrl, errors: errors.array() });
     return next(new AppError(`Invalid input - ${errorMessages}`, 400));
   }
   next();
@@ -35,7 +33,9 @@ const registerValidation = [
     .isEmail()
     .withMessage("invalid format")
     .normalizeEmail(),
-  body("password").isLength({ min: 8 }).withMessage("must be at least 8 chars"),
+  body("password")
+    .isLength({ min: 8 })
+    .withMessage("must be at least 8 chars"),
   body("role")
     .optional()
     .isIn(["customer", "seller"])
@@ -144,7 +144,7 @@ const reviewVoteValidation = [
   param("reviewId")
     .isInt({ gt: 0 })
     .withMessage("valid review ID required in URL")
-    .toInt(), // Added param validation
+    .toInt(),
   body("vote_type")
     .isIn(["helpful", "not helpful"])
     .withMessage('must be "helpful" or "not helpful"'),
@@ -185,7 +185,6 @@ const cartItemUpdateValidation = [
 
 // Create Order
 const orderCreateValidation = [
-  // Assuming shipping address and payment method are primary inputs for creation
   body("shipping_address")
     .trim()
     .notEmpty()
@@ -199,8 +198,7 @@ const orderCreateValidation = [
     .withMessage("required")
     .isLength({ max: 50 })
     .withMessage("max 50 chars")
-    .escape(), // e.g., 'Credit Card', 'PayPal'
-  // Actual payment processing details (like tokens) should be handled securely, not passed directly/validated here typically
+    .escape(),
   handleValidationErrors,
 ];
 
@@ -214,24 +212,23 @@ const userProfileUpdateValidation = [
     .isLength({ min: 2, max: 100 })
     .withMessage("must be 2-100 chars")
     .escape(),
-  // Add other updatable profile fields here (e.g., phone number)
   handleValidationErrors,
 ];
 
 // Change Password (Self)
 const changePasswordValidation = [
-  body("currentPassword").notEmpty().withMessage("required"),
+  body("currentPassword")
+    .notEmpty()
+    .withMessage("required"),
   body("newPassword")
     .isLength({ min: 8 })
     .withMessage("must be at least 8 chars"),
-  // Optional: confirm new password
-  // body('confirmNewPassword').custom((value, { req }) => { if (value !== req.body.newPassword) { throw new Error('New passwords do not match'); } return true; }),
   handleValidationErrors,
 ];
 
 // Admin Update User
 const adminUserUpdateValidation = [
-  param("userId")
+  param("id")
     .isInt({ gt: 0 })
     .withMessage("valid user ID required in URL")
     .toInt(),
@@ -253,7 +250,6 @@ const adminUserUpdateValidation = [
     .optional()
     .isIn(["customer", "seller", "admin"])
     .withMessage("invalid role"),
-  // Add other fields admin can modify (e.g., is_active boolean)
   handleValidationErrors,
 ];
 
@@ -269,14 +265,107 @@ const moderationDecisionValidation = [
   body("feedback")
     .if(body("status").equals("rejected"))
     .notEmpty()
-    .withMessage("feedback required for rejection") // Feedback required only if rejecting
-    .bail() // Stop if feedback required but missing
-    .optional({ checkFalsy: true }) // Allow empty if not rejecting (or make it optional always)
+    .withMessage("feedback required for rejection")
+    .bail()
+    .optional({ checkFalsy: true })
     .trim()
     .isLength({ max: 1000 })
     .withMessage("max 1000 chars")
     .escape(),
   handleValidationErrors,
+];
+
+// Dispute Update
+const disputeUpdateValidation = [
+  param("id")
+    .isInt({ gt: 0 })
+    .withMessage("valid dispute ID required")
+    .toInt(),
+  body("status")
+    .isIn(['open', 'resolved', 'rejected', 'under_review'])
+    .withMessage("Invalid status. Must be 'open', 'resolved', 'rejected', or 'under_review'"),
+  body("resolution_details")
+    .if(body("status").isIn(['resolved', 'rejected']))
+    .notEmpty()
+    .withMessage("Resolution details are required when resolving or rejecting a dispute")
+    .isLength({ min: 10, max: 2000 })
+    .withMessage("Resolution details must be between 10 and 2000 characters"),
+  handleValidationErrors,
+];
+
+// Product Status Update
+const productStatusValidation = [
+  body("status")
+    .trim()
+    .notEmpty()
+    .withMessage("Status is required")
+    .isIn(["pending", "approved", "rejected"])
+    .withMessage("Invalid status value"),
+  body("feedback")
+    .optional()
+    .trim()
+    .isString()
+    .withMessage("Feedback must be text")
+    .isLength({ max: 1000 })
+    .withMessage("Feedback cannot exceed 1000 characters"),
+  handleValidationErrors,
+];
+
+// Validation for moderation feedback update
+const moderationFeedbackUpdateValidation = [
+  param("moderationId")
+    .isInt({ gt: 0 })
+    .withMessage("valid moderation ID required in URL")
+    .toInt(),
+  body("feedback")
+    .trim()
+    .notEmpty()
+    .withMessage("feedback is required")
+    .isLength({ max: 1000 })
+    .withMessage("feedback must not exceed 1000 characters")
+    .escape(),
+  handleValidationErrors,
+];
+
+// Seller Status Update
+const sellerStatusValidation = [
+  param("id")
+    .isInt({ gt: 0 })
+    .withMessage("valid seller ID required")
+    .toInt(),
+  body("is_active")
+    .isBoolean()
+    .withMessage("Status must be a boolean value"),
+  handleValidationErrors,
+];
+
+// Order Status Update Validation
+const orderStatusUpdateValidation = [
+  param("id")
+    .isInt({ gt: 0 })
+    .withMessage("Valid order ID required")
+    .toInt(),
+  body("order_status")
+    .isIn(['pending_payment', 'processing', 'shipped', 'delivered', 'cancelled'])
+    .withMessage('Status must be one of: pending_payment, processing, shipped, delivered, cancelled')
+    .notEmpty(),
+  body("shipping_status")
+    .optional()
+    .isIn(['processing', 'shipped', 'delivered'])
+    .withMessage('Shipping status must be one of: processing, shipped, delivered'),
+  body("tracking_number")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ min: 5, max: 50 })
+    .withMessage('Tracking number must be between 5 and 50 characters'),
+  body("carrier")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ min: 2, max: 50 })
+    .withMessage('Carrier name must be between 2 and 50 characters'),
+  handleValidationErrors
 ];
 
 // Generic ID Parameter Validation Factory
@@ -285,28 +374,6 @@ const idParamValidation = (idName = "id") => [
     .isInt({ gt: 0 })
     .withMessage(`Invalid ${idName} parameter (must be positive integer)`)
     .toInt(),
-  handleValidationErrors,
-];
-
-// Generic Pagination Query Validation
-const paginationValidation = [
-  query("page")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("page must be positive integer")
-    .toInt(),
-  query("limit")
-    .optional()
-    .isInt({ min: 1, max: 100 })
-    .withMessage("limit must be between 1 and 100")
-    .toInt(), // Max limit 100
-  query("sort")
-    .optional()
-    .matches(/^[\w]+:(asc|desc)$/i)
-    .withMessage("sort must be in format field:direction (e.g., name:asc)"), // Basic format check
-  query("search").optional().trim().escape(), // Sanitize search terms
-  // Add specific filter validations if needed (e.g., category must be number)
-  // query('category').optional().isInt({ gt: 0 }).withMessage('category filter must be a positive integer').toInt(),
   handleValidationErrors,
 ];
 
@@ -324,6 +391,10 @@ module.exports = {
   changePasswordValidation,
   adminUserUpdateValidation,
   moderationDecisionValidation,
-  idParamValidation,
-  paginationValidation,
+  disputeUpdateValidation,
+  productStatusValidation,
+  moderationFeedbackUpdateValidation,
+  sellerStatusValidation,
+  orderStatusUpdateValidation,
+  idParamValidation
 };
