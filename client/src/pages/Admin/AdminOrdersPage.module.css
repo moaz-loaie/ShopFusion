@@ -1,0 +1,117 @@
+/* Modern, full-width, visually rich admin orders page */
+.dashboardContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg, #f7f8fa);
+  min-height: 100vh;
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+}
+@media (max-width: 900px) {
+  .dashboardContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .dashboardContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+}
+.header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--color-primary, #2563eb);
+}
+.header p {
+  color: var(--color-text-light, #6b7280);
+  font-size: 1.1rem;
+}
+.tableWrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 2rem;
+  overflow-x: auto;
+}
+.orderTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+.orderTable th,
+.orderTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+.orderTable th {
+  background: #f7f8fa;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.orderTable tr:nth-child(even) {
+  background: #f9fafb;
+}
+.statusBadge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #fff;
+  background: #6366f1;
+  box-shadow: 0 1px 2px rgba(99, 102, 241, 0.08);
+}
+.statusBadge.processing {
+  background: #f59e42;
+}
+.statusBadge.shipped {
+  background: #2563eb;
+}
+.statusBadge.delivered {
+  background: #10b981;
+}
+.statusBadge.cancelled {
+  background: #ef4444;
+}
+.statusBadge.pending_payment {
+  background: #6366f1;
+}
+.actionBtn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: color 0.15s;
+}
+.actionBtn:hover {
+  color: #1e40af;
+}
+.statusMsg {
+  margin: 1rem 0;
+  color: #ef4444;
+  font-weight: 500;
+}
+@media (max-width: 700px) {
+  .tableWrapper {
+    padding: 1.2rem 0.5rem;
+  }
+  .orderTable th,
+  .orderTable td {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.95rem;
+  }
+}

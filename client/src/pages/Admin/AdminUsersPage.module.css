@@ -1,0 +1,101 @@
+.pageContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.header {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.searchContainer {
+  margin-bottom: 2rem;
+}
+.searchForm {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+}
+.searchInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.searchInput:focus {
+  border-color: #2563eb;
+}
+.searchButton {
+  padding: 0.75rem 1.5rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.searchButton:hover {
+  background: #1d4ed8;
+}
+.tableWrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 2rem;
+  overflow-x: auto;
+}
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+.userTable th,
+.userTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+.userTable th {
+  background: #f7f8fa;
+  font-weight: 600;
+}
+.roleBadge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #fff;
+  background: #2563eb;
+}
+.roleBadge.seller {
+  background: #10b981;
+}
+.roleBadge.customer {
+  background: #6366f1;
+}
+.roleBadge.admin {
+  background: #ef4444;
+}
+.actionBtn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: color 0.15s;
+}
+.actionBtn:hover {
+  color: #1e40af;
+}
+.statusMsg {
+  margin: 1rem 0;
+  color: #ef4444;
+  font-weight: 500;
+}

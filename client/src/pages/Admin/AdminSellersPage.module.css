@@ -1,0 +1,291 @@
+/* Modern styling for the sellers page */
+:root {
+  --color-bg: #f7f8fa;
+  --color-bg-section: #fff;
+  --color-bg-hover: #f9fafb;
+  --color-bg-subtle: #f3f4f6;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-success: #059669;
+  --color-success-light: #d1fae5;
+  --color-warning: #d97706;
+  --color-warning-light: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-text: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --radius: 0.75rem;
+}
+
+.sellersContainer {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 2rem;
+}
+
+.pageHeader h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.pageHeader p {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-secondary);
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+}
+
+.statCard h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.statNumber {
+  margin: 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.statPercentage {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.filtersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchForm {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.filterGroup {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.searchInput,
+.filterSelect {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.filterSelect {
+  min-width: 150px;
+}
+
+.searchInput:focus,
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.tableContainer {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2rem;
+}
+
+.sellersTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.sellersTable th,
+.sellersTable td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sellersTable th {
+  background: var(--color-bg-alt);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.sellerRow {
+  transition: background-color 0.2s;
+}
+
+.sellerRow:hover {
+  background: var(--color-bg-hover);
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.statusActive {
+  background: #e8f5e9;
+  color: #28a745;
+}
+
+.statusInactive {
+  background: #ffebee;
+  color: #dc3545;
+}
+
+.noProducts {
+  color: var(--color-text-secondary);
+}
+
+.actionButton {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+  min-width: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.actionButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.deactivateBtn {
+  background: #dc3545;
+  color: white;
+}
+
+.deactivateBtn:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.activateBtn {
+  background: #28a745;
+  color: white;
+}
+
+.activateBtn:hover:not(:disabled) {
+  background: #218838;
+}
+
+.bulkActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius);
+}
+
+.selectedCount {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.bulkActionButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  min-width: 120px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .sellersContainer {
+    padding: 1rem;
+  }
+
+  .filtersContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchForm {
+    max-width: none;
+  }
+
+  .filterGroup {
+    flex-direction: column;
+  }
+
+  .tableContainer {
+    margin: 0 -1rem;
+    border-radius: 0;
+  }
+
+  .sellersTable {
+    font-size: 0.9rem;
+  }
+
+  .actionButton {
+    padding: 0.3rem 0.6rem;
+    min-width: 80px;
+  }
+
+  .bulkActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

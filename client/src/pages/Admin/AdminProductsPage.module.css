@@ -1,0 +1,260 @@
+/* Modern, full-width, visually rich admin products page */
+.dashboardContainer {
+  width: 100vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(120deg, #f7f8fa 70%, #e0e7ff 100%);
+  min-height: 100vh;
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+}
+@media (max-width: 900px) {
+  .dashboardContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .dashboardContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+}
+.header {
+  text-align: left;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+.header p {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.pendingCard {
+  border-left: 4px solid #ffd43b;
+}
+.approvedCard {
+  border-left: 4px solid #51cf66;
+}
+.rejectedCard {
+  border-left: 4px solid #ff6b6b;
+}
+.totalCard {
+  border-left: 4px solid #339af0;
+}
+.card .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.card .value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: #1a1a1a;
+}
+.card .label {
+  color: #666;
+  font-size: 0.9rem;
+}
+.filtersSection {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.statusTabs {
+  display: flex;
+  gap: 0.5rem;
+}
+.tab,
+.activeTab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab {
+  background: #f8f9fa;
+  color: #495057;
+}
+.tab:hover {
+  background: #e9ecef;
+}
+.activeTab {
+  background: #339af0;
+  color: white;
+}
+.sellerSelect {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  min-width: 200px;
+  color: #495057;
+}
+.tableSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.tableWrapper {
+  overflow-x: auto;
+  padding: 1rem;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th {
+  text-align: left;
+  padding: 1rem;
+  background: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f1f3f5;
+  color: #495057;
+}
+.productLink {
+  color: #339af0;
+  text-decoration: none;
+  font-weight: 500;
+}
+.productLink:hover {
+  text-decoration: underline;
+}
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.pending {
+  background: #fff3bf;
+  color: #e67700;
+}
+.approved {
+  background: #d3f9d8;
+  color: #2b8a3e;
+}
+.rejected {
+  background: #ffe3e3;
+  color: #e03131;
+}
+.actionsCell {
+  display: flex;
+  gap: 0.5rem;
+}
+.actionBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+.actionBtn:not(:disabled) {
+  background: #339af0;
+  color: white;
+}
+.actionBtn:hover:not(:disabled) {
+  background: #228be6;
+}
+.actionBtn:disabled {
+  background: #dee2e6;
+  cursor: not-allowed;
+  color: #adb5bd;
+}
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #495057;
+}
+.error {
+  padding: 1rem;
+  margin: 1rem 0;
+  background: #ffe3e3;
+  color: #e03131;
+  border-radius: 8px;
+}
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+}
+.emptyState .icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #adb5bd;
+}
+.emptyState h3 {
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+.emptyState p {
+  color: #868e96;
+}
+.statusMessage {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: #d3f9d8;
+  color: #2b8a3e;
+}
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 1rem;
+  }
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .filtersSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .statusTabs {
+    flex-wrap: wrap;
+  }
+  .tab,
+  .activeTab {
+    flex: 1;
+    text-align: center;
+  }
+}

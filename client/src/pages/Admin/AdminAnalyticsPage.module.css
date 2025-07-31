@@ -1,0 +1,100 @@
+/* Admin Analytics - Modern CSS with Custom Properties */
+.dashboardContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background-color: var(--color-bg);
+}
+@media (max-width: 900px) {
+  .dashboardContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .dashboardContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+}
+.header {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+.header p {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+}
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+.analyticsCard {
+  background: linear-gradient(135deg, var(--color-surface) 0%, #f8fafc 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--color-border);
+}
+.analyticsCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.analyticsTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+.analyticsValue {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+.analyticsDesc {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+}
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .analyticsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: var(--spacing-md);
+  }
+  .header h1 {
+    font-size: 1.75rem;
+  }
+  .analyticsValue {
+    font-size: 1.8rem;
+  }
+}
+@media (max-width: 480px) {
+  .dashboardContainer {
+    padding: var(--spacing-sm);
+  }
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+  .analyticsValue {
+    font-size: 1.6rem;
+  }
+  .analyticsCard {
+    padding: var(--spacing-md);
+  }
+}

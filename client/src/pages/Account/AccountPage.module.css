@@ -1,0 +1,143 @@
+/*
+  Overhaul AccountPage.module.css for full-width, responsive layout:
+  - .accountContainer: width: 100vw; max-width: none; margin: 0; padding: 2.5rem 3vw 3vw 3vw; background: var(--color-bg, #f7f8fa);
+  - Remove max-widths, use edge-to-edge sections
+  - Responsive padding for mobile/tablet
+*/
+.accountContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg, #f7f8fa);
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.accountTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary, #2563eb);
+  margin-bottom: 1.5rem;
+}
+
+.accountInfo {
+  margin-bottom: 2rem;
+  color: var(--color-text, #22223b);
+}
+
+.accountSection {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary, #2563eb);
+  margin-bottom: 0.5rem;
+}
+
+.sectionContent {
+  color: var(--color-text, #22223b);
+  font-size: 1rem;
+}
+
+.editButton {
+  background: var(--color-primary, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.editButton:hover {
+  background: var(--color-primary-dark, #1e40af);
+}
+
+.accountInfoBox {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 2rem;
+}
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+.roleBadge {
+  background: #e0e7ff;
+  color: #2563eb;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.25rem 0.8rem;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+.editForm {
+  width: 100%;
+}
+.buttonRow {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.successMsg {
+  color: #16a34a;
+  margin-top: 0.8rem;
+  font-size: 1rem;
+}
+.errorMsg {
+  color: #dc2626;
+  margin-top: 0.8rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+  .accountContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+  .accountInfoBox {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.2rem 1rem;
+  }
+  .avatarSection {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .accountContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+  .accountInfoBox {
+    padding: 0.5rem 0.5rem;
+  }
+}
