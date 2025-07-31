@@ -1,0 +1,35 @@
+.chartContainer {
+  width: 100%;
+}
+
+.chartContainer h3 {
+  margin: 0 0 1.5rem;
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.chart {
+  width: 100%;
+  height: 300px;
+}
+
+.tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e2e8f0;
+}
+
+.tooltipDate {
+  margin: 0 0 4px;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.tooltipValue {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
