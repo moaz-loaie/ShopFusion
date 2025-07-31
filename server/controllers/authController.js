@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../db").models;
+const { User } = require("../db");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const { hashPassword, comparePassword } = require("../utils/passwordUtils");
@@ -97,11 +97,16 @@ exports.login = catchAsync(async (req, res, next) => {
     where: { email },
     attributes: ["id", "email", "full_name", "role", "password_hash"], // Include hash for comparison
   });
-
   // 3) Check if user exists and password is correct
   if (!user || !(await comparePassword(password, user.password_hash))) {
     logger.warn(`Failed login attempt for email: ${email}`);
     return next(new AppError("Incorrect email or password", 401)); // Unauthorized
+  }
+
+  // 4) Check if user account is active
+  if (!user.is_active) {
+    logger.warn(`Login attempt by inactive user: ${email}`);
+    return next(new AppError("Your account is inactive. Please contact support.", 401));
   }
 
   // 4) If everything is ok, send token to client
@@ -119,12 +124,10 @@ exports.logout = (req, res) => {
   //   sameSite: 'strict' // Or 'lax' depending on needs
   // });
   logger.info(`Logout endpoint called by User ID: ${req.user?.id || "N/A"}`);
-  res
-    .status(200)
-    .json({
-      status: "success",
-      message: "Logged out (client should clear token)",
-    });
+  res.status(200).json({
+    status: "success",
+    message: "Logged out (client should clear token)",
+  });
 };
 
 // Optional: Verify Token Endpoint (e.g., for frontend checks on load)
