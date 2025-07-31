@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
-const { User } = require("../db").models; // Adjust path if models are elsewhere
+const db = require("../db");
+const { User } = db;
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const jwtConfig = require("../config/jwt");
@@ -20,7 +21,7 @@ const protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(" ")[1];
   }
-  // TODO: Add support for checking tokens in cookies if implementing refresh tokens securely
+  // ...existing code...
 
   if (!token) {
     logger.warn("Auth middleware - No token found in Authorization header");
@@ -54,11 +55,9 @@ const protect = catchAsync(async (req, res, next) => {
       new AppError("Token verification failed. Please log in again.", 401)
     );
   }
-
-  // 3) Check if user associated with the token still exists
+  // 3) Check if user associated with the token still exists and is active
   const currentUser = await User.findByPk(decoded.id, {
-    attributes: ["id", "email", "full_name", "role"], // Select only necessary, non-sensitive fields
-    // Add 'changedPasswordAt' if implementing password change check
+    attributes: ["id", "email", "full_name", "role", "is_active"], // Add is_active to selected fields
   });
 
   if (!currentUser) {
@@ -67,6 +66,14 @@ const protect = catchAsync(async (req, res, next) => {
     );
     return next(
       new AppError("The user belonging to this token no longer exists.", 401) // Unauthorized
+    );
+  }
+
+  // Check if user is active
+  if (!currentUser.is_active) {
+    logger.warn(`Auth middleware - Inactive user ${decoded.id} attempted to access protected route`);
+    return next(
+      new AppError("Your account is inactive. Please contact support.", 401)
     );
   }
 

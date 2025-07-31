@@ -24,10 +24,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING, allowNull: false,
       validate: { notNull: { msg: 'Full name cannot be empty.' }, notEmpty: { msg: 'Full name cannot be empty.' }, len: { args: [2, 100], msg: 'Full name must be between 2 and 100 characters.' } }
     },
-    password_hash: { type: DataTypes.STRING, allowNull: false },
-    role: {
+    password_hash: { type: DataTypes.STRING, allowNull: false },    role: {
       type: DataTypes.ENUM('customer', 'seller', 'admin'), allowNull: false, defaultValue: 'customer',
       validate: { isIn: { args: [['customer', 'seller', 'admin']], msg: 'Invalid user role specified.' } }
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     },
   }, {
     sequelize,

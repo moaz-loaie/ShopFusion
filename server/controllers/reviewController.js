@@ -1,5 +1,4 @@
-const { Review, ReviewVote, Product, User, sequelize } =
-  require("../db").models;
+const { Review, ReviewVote, Product, User, sequelize } = require("../db");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const logger = require("../utils/logger");
@@ -59,7 +58,7 @@ exports.updateReview = catchAsync(async (req, res, next) => {
 
   await review.save(); // This will trigger model validations
 
-  // TODO: Recalculate product's average rating after review update
+  // ...existing code...
   // This could be a separate utility function or a database trigger/stored procedure.
   // Example: await updateProductAverageRating(review.product_id);
 
@@ -92,7 +91,7 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
   const productId = review.product_id; // Store before deleting for potential rating update
   await review.destroy();
 
-  // TODO: Recalculate product's average rating after review deletion
+  // ...existing code...
   // Example: await updateProductAverageRating(productId);
 
   logger.info(
@@ -153,7 +152,7 @@ exports.voteReview = catchAsync(async (req, res, next) => {
     );
   }
 
-  // TODO: Optionally, update helpful/not_helpful counts on the Review model itself for quick retrieval
+  // ...existing code...
   // This would likely involve a transaction and re-querying counts or using increment/decrement.
 
   res.status(200).json({

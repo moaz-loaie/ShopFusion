@@ -12,21 +12,30 @@ module.exports = (sequelize, DataTypes) => {
       });
       // ModerationQueue item reviewed by one Admin (User)
       ModerationQueue.belongsTo(models.User, {
-        foreignKey: 'admin_id', // User ID of the admin who reviewed
+        foreignKey: 'admin_id',
         as: 'adminReviewer',
-        constraints: false // Optional: Allow admin_id to be null if not yet reviewed
+        constraints: false // Allow admin_id to be null if not yet reviewed
       });
     }
   }
+
   ModerationQueue.init({
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    id: { 
+      type: DataTypes.INTEGER, 
+      primaryKey: true, 
+      autoIncrement: true, 
+      allowNull: false 
+    },
     product_id: {
-      type: DataTypes.INTEGER, allowNull: false, unique: true, // One moderation entry per product
+      type: DataTypes.INTEGER, 
+      allowNull: false, 
+      unique: true,
       references: { model: 'Products', key: 'id' }
     },
     status: {
       type: DataTypes.ENUM('pending', 'approved', 'rejected'),
-      allowNull: false, defaultValue: 'pending',
+      allowNull: false, 
+      defaultValue: 'pending',
       validate: {
         isIn: {
           args: [['pending', 'approved', 'rejected']],
@@ -34,30 +43,54 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    feedback: { // Feedback from admin on rejection or notes for approval
+    feedback: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    admin_id: { // ID of the admin who reviewed this item
+    admin_id: {
       type: DataTypes.INTEGER,
-      allowNull: true, // Null if not yet reviewed by an admin
-      references: { model: 'Users', key: 'id' } // Admin must be a User
+      allowNull: true,
+      references: { model: 'Users', key: 'id' }
     },
-    reviewed_at: { // Timestamp of when the review decision was made
+    reviewed_at: {
       type: DataTypes.DATE,
       allowNull: true
-    },
-    // Timestamps (createdAt, updatedAt for the queue entry itself) managed by Sequelize
+    }
   }, {
     sequelize,
     modelName: 'ModerationQueue',
-    tableName: 'ModerationQueue', // Ensure table name consistency
+    tableName: 'ModerationQueue',
     timestamps: true,
     indexes: [
       { fields: ['product_id'], unique: true },
-      { fields: ['status'] }, // For querying items by status
+      { fields: ['status'] },
       { fields: ['admin_id'] }
-    ]
+    ],
+    hooks: {
+      beforeUpdate: async (instance) => {
+        // Set reviewed_at timestamp when status changes from pending
+        if (instance.changed('status') && instance.status !== 'pending') {
+          instance.reviewed_at = new Date();
+        }
+      }
+    },
+    scopes: {
+      byStatus(status) {
+        return {
+          where: { status }
+        };
+      },
+      bySeller(sellerId) {
+        return {
+          include: [{
+            model: sequelize.models.Product,
+            as: 'product',
+            where: { seller_id: sellerId }
+          }]
+        };
+      }
+    }
   });
+  
   return ModerationQueue;
 };

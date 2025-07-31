@@ -1,14 +1,16 @@
 const express = require("express");
 const productController = require("../controllers/productController");
-// Use reviewController for review-specific actions if separated
 const reviewController = require("../controllers/reviewController");
 const { protect, restrictTo } = require("../middleware/authMiddleware");
+const { paginationMiddleware } = require("../middleware/paginationMiddleware");
+const roleBasedAccess = require("../middleware/roleBasedAccess");
 const {
   productValidation,
   reviewValidation,
   idParamValidation,
-  paginationValidation, // Add pagination validation
+  productStatusValidation,
 } = require("../middleware/validationMiddleware");
+const upload = require("../middleware/uploadMiddleware");
 
 const router = express.Router();
 
@@ -16,17 +18,26 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(paginationValidation, productController.getAllProducts) // Public, add pagination validation
+  .get(
+    paginationMiddleware(12, 100),
+    roleBasedAccess,
+    productController.getAllProducts
+  )
   .post(
     protect,
     restrictTo("seller", "admin"),
+    upload.array("images", 5), // Accept up to 5 images
     productValidation,
     productController.createProduct
   );
 
 router
   .route("/:id")
-  .get(idParamValidation("id"), productController.getProductById) // Public
+  .get(
+    idParamValidation("id"),
+    roleBasedAccess,
+    productController.getProductById
+  ) // Public
   .patch(
     protect,
     restrictTo("seller", "admin"),
@@ -41,13 +52,24 @@ router
     productController.deleteProduct
   );
 
+// Product status updates (admin only)
+router
+  .route("/:id/status")
+  .patch(
+    protect,
+    restrictTo("admin"),
+    idParamValidation("id"),
+    productStatusValidation,
+    productController.updateProductStatus
+  );
+
 // --- Nested Review Routes ---
 
 router
   .route("/:productId/reviews")
   .get(
     idParamValidation("productId"),
-    paginationValidation, // Add pagination for reviews
+    paginationMiddleware(10, 50),
     productController.getProductReviews // Use product controller for consistency here
   )
   .post(
