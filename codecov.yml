@@ -1,0 +1,34 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
+    patch:
+      default:
+        target: 80%
+        threshold: 1%
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+  require_base: no
+  require_head: yes
+  show_carryforward_flags: true
+
+flag_management:
+  default_rules:
+    carryforward: true
+  individual_flags:
+    - name: client
+      paths:
+        - client/
+      carryforward: true
+    - name: server
+      paths:
+        - server/
+      carryforward: true
+
+github_checks:
+  annotations: true
