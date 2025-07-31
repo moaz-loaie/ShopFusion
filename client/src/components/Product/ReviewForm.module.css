@@ -1,0 +1,80 @@
+/* ReviewForm.module.css - Modern, clean, responsive styling for review form */
+.reviewFormContainer {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+  max-width: 500px;
+  width: 100%;
+}
+.reviewFormTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-primary, #2563eb);
+  margin-bottom: 1rem;
+}
+.formGroup {
+  margin-bottom: 1.2rem;
+}
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #22223b;
+}
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9fafb;
+  color: var(--color-text, #22223b);
+  transition: border 0.2s;
+}
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: var(--color-primary, #2563eb);
+  outline: none;
+  background: #fff;
+}
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-size: 1.05rem;
+}
+.button {
+  background: var(--color-primary, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.7rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+.button:hover {
+  background: var(--color-primary-dark, #1e40af);
+}
+.error {
+  color: #b91c1c;
+  background: #fee2e2;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.success {
+  color: var(--color-success, #22c55e);
+  background: #e7fbe9;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
