@@ -1,19 +1,17 @@
 const express = require("express");
 const categoryController = require("../controllers/categoryController");
 const { protect, restrictTo } = require("../middleware/authMiddleware");
-const {
-  categoryValidation,
+const { paginationMiddleware } = require("../middleware/paginationMiddleware");
+const {  categoryValidation,
   idParamValidation,
-  paginationValidation, // If listing categories paginated
 } = require("../middleware/validationMiddleware");
 
 const router = express.Router();
 
 // --- Category Routes ---
 
-router
-  .route("/")
-  .get(paginationValidation, categoryController.getAllCategories) // Public, maybe paginated
+router  .route("/")
+  .get(paginationMiddleware(20, 100), categoryController.getAllCategories) // Public, paginated with larger default limit
   .post(
     protect,
     restrictTo("admin"), // Only admins can create categories
