@@ -1,0 +1,237 @@
+/* Use design tokens for all colors, radii, font-sizes, and shadows */
+/*
+  Overhaul CartPage.module.css for full-width, responsive layout:
+  - .cartContainer: width: 100vw; max-width: none; margin: 0; padding: 0 3vw 3vw 3vw; background: var(--color-bg, #f7f8fa);
+  - All sections: responsive padding, edge-to-edge, remove max-widths
+  - Use media queries for mobile/tablet
+*/
+:root {
+  --color-bg: #f7f8fa;
+  --color-bg-section: #fff;
+  --color-primary: #222;
+  --color-secondary: #2563eb;
+  --radius: 24px;
+  --shadow-main: 0 4px 24px rgba(37, 99, 235, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.cartContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg, #f7f8fa);
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary, #2563eb);
+  margin-bottom: 1rem;
+}
+
+.cartList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+}
+
+.cartItem:last-child {
+  border-bottom: none;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.itemImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius, 12px);
+  background: var(--color-bg, #f7f8fa);
+  border: 1px solid var(--color-border, #e5e7eb);
+}
+
+.itemName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text, #22223b);
+}
+
+.itemPrice {
+  font-size: 1rem;
+  color: var(--color-secondary, #f59e42);
+}
+
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantityInput {
+  width: 48px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.removeButton {
+  background: var(--color-error, #e11d48);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.25rem 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: background 0.2s;
+}
+
+.removeButton:disabled {
+  background: #f3b6c1;
+  cursor: not-allowed;
+}
+
+.cartSummary {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text, #22223b);
+  margin-top: 2rem;
+}
+
+.checkoutButton {
+  background: var(--color-success, #22c55e);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius, 12px);
+  padding: 0.75rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.checkoutButton:disabled {
+  background: #b6e7c9;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  color: var(--color-primary, #2563eb);
+  font-size: 1.2rem;
+  margin-top: 3rem;
+}
+
+.error {
+  text-align: center;
+  color: var(--color-error, #e11d48);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.emptyCart {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.shopLink {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: var(--color-primary, #2563eb);
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+.shopLink:hover {
+  background: var(--color-primary-dark, #1e40af);
+}
+
+.container,
+.dashboardContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg);
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.section,
+.tableWrapper,
+.orderSection,
+.checkoutSection,
+.cartSection {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 2vw;
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 2.2rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+@media (max-width: 900px) {
+  .container,
+  .dashboardContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+  .section,
+  .tableWrapper,
+  .orderSection,
+  .checkoutSection,
+  .cartSection {
+    padding: 1.2rem 1vw;
+  }
+}
+@media (max-width: 600px) {
+  .container,
+  .dashboardContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+  .section,
+  .tableWrapper,
+  .orderSection,
+  .checkoutSection,
+  .cartSection {
+    border-radius: 0;
+    padding: 1.2rem 0.5vw;
+  }
+}

@@ -1,0 +1,206 @@
+/*
+  Overhaul ProductListPage.module.css for full-width, responsive layout:
+  - .container: width: 100vw; max-width: none; margin: 0; padding: 2.5rem 3vw 3vw 3vw; background: var(--color-bg, #f7f8fa);
+  - Remove max-widths, use edge-to-edge sections
+  - Responsive padding for mobile/tablet
+*/
+:root {
+  --color-bg: #f7f8fa;
+  --color-bg-section: #fff;
+  --color-primary: #222;
+  --color-secondary: #2563eb;
+  --radius: 24px;
+  --shadow-main: 0 4px 24px rgba(37, 99, 235, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+  background: var(--color-bg);
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.header {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 2.2rem;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+}
+
+.filterBar,
+.productList,
+.pagination {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 2vw;
+}
+
+.productsSection {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  min-height: 400px;
+}
+
+.productGrid {
+  margin: 1rem 0;
+}
+
+.pagination {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.emptyStateIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  color: #343a40;
+  margin: 0 0 1rem 0;
+}
+
+.emptyState p {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.skeletonLoader {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 1.1rem;
+  background: repeating-linear-gradient(
+    90deg,
+    #f3f4f6 0px,
+    #f3f4f6 40px,
+    #e5e7eb 40px,
+    #e5e7eb 80px
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.statusMsg {
+  margin: 1rem 0;
+  color: #ef4444;
+  font-weight: 500;
+  text-align: center;
+}
+
+.visuallyHidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 2.2rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.filterInfo {
+  margin-top: 0.5rem;
+  color: var(--color-text-light, #6b7280);
+  font-size: 0.95rem;
+}
+
+.roleInfo {
+  color: var(--color-primary, #2563eb);
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .productsSection {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .productsSection {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .productGrid {
+    margin: 0.5rem 0;
+  }
+
+  .pagination {
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+
+  .productsSection {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  .emptyState {
+    padding: 2rem 1rem;
+  }
+
+  .pagination {
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+  }
+}

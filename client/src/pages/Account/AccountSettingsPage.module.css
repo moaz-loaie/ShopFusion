@@ -1,0 +1,120 @@
+/* AccountSettingsPage.module.css */
+.settingsContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--color-bg-section, #fff);
+  border-radius: var(--radius, 12px);
+  box-shadow: var(--shadow-card);
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border, #e5e7eb);
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.settingsGroup {
+  background: var(--color-bg-section-alt, #f8fafc);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border, #e5e7eb);
+}
+
+.settingsGroup h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+}
+
+.settingItem {
+  margin-bottom: 1.25rem;
+}
+
+.settingItem:last-child {
+  margin-bottom: 0;
+}
+
+.settingItem label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.settingItem input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 4px;
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+}
+
+.settingItem select {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  font-size: 1rem;
+  color: var(--color-text);
+  cursor: pointer;
+  max-width: 200px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: 1rem;
+}
+
+.saveButton {
+  padding: 0.75rem 2rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.saveButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .settingsContainer {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .settingItem label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .settingItem select {
+    max-width: 100%;
+    width: 100%;
+  }
+}

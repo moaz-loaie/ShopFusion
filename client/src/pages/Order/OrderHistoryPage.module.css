@@ -1,0 +1,172 @@
+/*
+  Overhaul OrderHistoryPage.module.css for full-width, responsive layout:
+  - .orderHistoryContainer: width: 100vw; max-width: none; margin: 0; padding: 2.5rem 3vw 3vw 3vw; background: var(--color-bg, #f7f8fa);
+  - Remove max-widths, use edge-to-edge sections
+  - Responsive padding for mobile/tablet
+*/
+:root {
+  --color-bg: #f7f8fa;
+  --color-bg-section: #fff;
+  --color-primary: #222;
+  --color-secondary: #2563eb;
+  --radius: 24px;
+  --shadow-main: 0 4px 24px rgba(37, 99, 235, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.orderHistoryContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg, #f7f8fa);
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.container,
+.dashboardContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg);
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.section,
+.tableWrapper,
+.orderSection,
+.checkoutSection,
+.cartSection {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 2vw;
+}
+
+.orderHistoryTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary, #2563eb);
+  margin-bottom: 1.5rem;
+}
+
+.orderTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.orderTable th,
+.orderTable td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  text-align: left;
+}
+
+.orderTable th {
+  color: var(--color-text-light, #6b7280);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.orderTable td {
+  color: var(--color-text, #22223b);
+  font-size: 1rem;
+}
+
+.orderLink {
+  color: var(--color-primary, #2563eb);
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
+.orderLink:hover {
+  color: var(--color-primary-dark, #1e40af);
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--color-text-light, #6b7280);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  border-radius: 1em;
+  font-size: 0.98rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  background: #e5e7eb;
+  color: #22223b;
+  margin-right: 0.2em;
+}
+.statusPending {
+  background: #fef3c7;
+  color: #b45309;
+}
+.statusPaid {
+  background: #d1fae5;
+  color: #047857;
+}
+.statusShipped {
+  background: #e0e7ff;
+  color: #2563eb;
+}
+.statusDelivered {
+  background: #d1fae5;
+  color: #065f46;
+}
+.statusCancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.statusRefunded {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+.statusDefault {
+  background: #e5e7eb;
+  color: #22223b;
+}
+.orderTotal {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .container,
+  .dashboardContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+  .section,
+  .tableWrapper,
+  .orderSection,
+  .checkoutSection,
+  .cartSection {
+    padding: 1.2rem 1vw;
+  }
+}
+@media (max-width: 600px) {
+  .container,
+  .dashboardContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+  .section,
+  .tableWrapper,
+  .orderSection,
+  .checkoutSection,
+  .cartSection {
+    border-radius: 0;
+    padding: 1.2rem 0.5vw;
+  }
+}

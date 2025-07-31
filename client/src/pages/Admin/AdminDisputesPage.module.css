@@ -1,0 +1,355 @@
+/* Modern, full-width, visually rich admin disputes page */
+:root {
+  --color-bg: #f7f8fa;
+  --color-bg-section: #fff;
+  --color-primary: #222;
+  --color-secondary: #2563eb;
+  --radius: 24px;
+  --shadow-main: 0 4px 24px rgba(37, 99, 235, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --color-primary: #2563eb;
+  --color-primary-light: #60a5fa;
+  --color-primary-dark: #1e40af;
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+}
+
+.dashboardContainer {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 3vw 3vw 3vw;
+  background: var(--color-bg);
+  min-height: 100vh;
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-x: hidden;
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 2vw;
+}
+
+.disputeTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.disputeTable th,
+.disputeTable td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.disputeTable th {
+  background: var(--color-bg-subtle);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.disputeTable td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.disputeTable tbody tr:hover {
+  background: var(--color-bg-hover);
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 2.2rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+@media (max-width: 900px) {
+  .dashboardContainer {
+    padding: 1.2rem 2vw 2vw 2vw;
+  }
+  .tableWrapper,
+  .disputeTable {
+    padding: 1.2rem 1vw;
+  }
+}
+@media (max-width: 600px) {
+  .dashboardContainer {
+    padding: 0.5rem 0 1vw 0;
+  }
+  .tableWrapper,
+  .disputeTable {
+    border-radius: 0;
+    padding: 1.2rem 0.5vw;
+  }
+}
+.header {
+  margin-bottom: 2rem;
+}
+.header h1 {
+  font-size: 2rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+.header p {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+.disputeTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1.5rem;
+}
+.disputeTable th,
+.disputeTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+.disputeTable th {
+  background: #f7f8fa;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.disputeTable tr:nth-child(even) {
+  background: #f9fafb;
+}
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.statusBadge.open {
+  background: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.statusBadge.resolved {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.statusBadge.rejected {
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.statusBadge.under_review {
+  background: var(--color-info-light);
+  color: var(--color-info);
+}
+
+.priorityBadge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.priorityBadge.high {
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.priorityBadge.medium {
+  background: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.priorityBadge.low {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.actionButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+  opacity: 0.9;
+}
+
+.viewButton {
+  background: var(--color-info);
+  color: white;
+}
+
+.resolveButton {
+  background: var(--color-success);
+  color: white;
+}
+
+.rejectButton {
+  background: var(--color-error);
+  color: white;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContent h2 {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-border);
+}
+.modalPre {
+  margin: 1rem 0;
+  white-space: pre-wrap;
+}
+.modalPre div {
+  margin-bottom: 0.75rem;
+}
+.actionLoading {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 2rem;
+  background: var(--color-bg-section);
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+  animation: slideIn 0.3s ease-out;
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.paginationContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 2rem 0 0 0;
+}
+
+.paginationBtn {
+  background: #fff;
+  color: #222;
+  border: 1px solid #ddd;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.paginationBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.paginationInfo {
+  font-size: 1.1rem;
+  color: #555;
+}
+.paginationWrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .paginationWrapper {
+    margin: 1.2rem 0 0 0;
+  }
+}
+.filtersContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterLabel {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.filterSelect {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  min-width: 150px;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .filtersContainer {
+    flex-direction: column;
+  }
+
+  .filterGroup {
+    width: 100%;
+  }
+
+  .tableWrapper {
+    margin: 0 -1rem;
+    border-radius: 0;
+  }
+}

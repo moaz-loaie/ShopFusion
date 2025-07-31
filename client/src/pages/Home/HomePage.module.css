@@ -1,0 +1,577 @@
+/*
+  Refined HomePage.module.css:
+  - Keep Top Selling and New Arrivals styles unchanged
+  - Use provided styles for all other sections and refine with best practices
+  - Ensure full-width layout, responsive design, and consistent spacing
+*/
+:root {
+  --color-bg: #f7f8fa;
+  --color-bg-hero: #f8f9fb;
+  --color-bg-section: #fff;
+  --color-primary: #18181b;
+  --color-secondary: #2563eb;
+  --color-text: #18181b;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-highlight: #eef2ff;
+  --radius: 24px;
+  --shadow-main: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.homePageContainer {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroSection {
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Adjusted from space-between since right part is removed */
+  background: #ffffff;
+  padding: 0 8vw;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.heroSection::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(37, 99, 235, 0.08) 100%);
+  z-index: 1;
+}
+
+.heroLeft {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
+  z-index: 2;
+}
+
+.heroHeadline {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--color-primary);
+  margin-bottom: 1.7rem;
+  text-transform: uppercase;
+}
+
+.heroSubheadline {
+  font-size: 1.18rem;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  max-width: 440px;
+  font-weight: 400;
+}
+
+.heroButton {
+  background: #18181b;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 1.1rem 2.8rem;
+  margin-bottom: 2.7rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.heroButton:hover {
+  background: #111;
+}
+
+.heroStatsRow {
+  display: flex;
+  gap: 3.5rem;
+  margin-top: 0.5rem;
+}
+
+.heroStat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 600;
+}
+
+.heroStat span:first-child {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #222;
+  margin-bottom: 0.2rem;
+}
+
+.heroSearchForm {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 100px;
+  padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+  width: 100%;
+  max-width: 440px;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+}
+
+.heroSearchForm:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.heroSearchInput {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 0.7rem 0;
+  font-size: 1rem;
+  color: #1f2937;
+  outline: none;
+}
+
+.heroSearchInput::placeholder {
+  color: #9ca3af;
+}
+
+.heroSearchButton {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.heroSearchButton:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.heroSearchButton:disabled {
+  background: #e5e7eb;
+  cursor: not-allowed;
+}
+
+.searchError {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+.brandLogosSection {
+  background: var(--color-bg-section);
+  padding: 3.5rem 8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.brandLogosList {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.brandLogosList::-webkit-scrollbar {
+  display: none;
+}
+
+.brandLogoItem {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  min-height: 40px;
+}
+
+.brandLogoImg {
+  max-width: 120px;
+  max-height: 40px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.1);
+  opacity: 0.85;
+  transition: filter 0.18s, opacity 0.18s;
+}
+
+.brandLogoImg:hover {
+  filter: none;
+  opacity: 1;
+}
+
+.brandScrollBtn {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+  transition: background 0.18s, border 0.18s;
+}
+
+.brandScrollBtn:hover {
+  background: #f7f8fa;
+  border: 1.5px solid #2563eb;
+}
+
+.section {
+  width: 100%;
+  padding: 4rem 8vw;
+  background: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.viewAllLink {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+  border: 1.5px solid var(--color-secondary);
+}
+
+.viewAllLink:hover {
+  text-decoration: underline;
+  background: var(--color-secondary);
+  color: white;
+}
+
+.newArrivalsGrid {
+  padding: 1.5rem 0;
+  margin: 0 -1rem;
+}
+
+.topSellingGrid {
+  padding: 1.5rem 0;
+  margin: 0 -1rem;
+}
+
+.categoriesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.categoryCard {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s;
+}
+
+.categoryCard:hover {
+  transform: translateY(-4px);
+}
+
+.categoryIconImg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.categoryName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.dressStyleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.dressStyleCard {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  text-decoration: none;
+  color: #000000;
+}
+
+.dressStyleImageWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.dressStyleImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dressStyleName {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.testimonialCarousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 2rem;
+}
+
+.testimonialCardsWrapper {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.testimonialCard {
+  flex: 0 0 33.333%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.testimonialNavBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.testimonialNavBtn:first-child {
+  left: 0;
+}
+
+.testimonialNavBtn:last-child {
+  right: 0;
+}
+
+.testimonialStars {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.testimonialAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.testimonialAuthor {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.testimonialText {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.newsletterSection {
+  width: 100%;
+  padding: 4rem 8vw;
+  background: #000000;
+  color: #ffffff;
+  text-align: center;
+}
+
+.newsletterTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.newsletterDescription {
+  font-size: 1.125rem;
+  color: #cccccc;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletterInput {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 1rem;
+}
+
+.newsletterButton {
+  padding: 1rem 2rem;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.newsletterButton:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .heroSection,
+  .section {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+  .brandLogosList {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .heroSection {
+    flex-direction: column;
+    min-height: auto;
+    padding: 0 0 0 4vw;
+  }
+  .heroLeft {
+    padding: 2.5rem 0 1.5rem 0;
+  }
+  .section {
+    padding: 2.5rem 3vw;
+  }
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroHeadline {
+    font-size: 2.5rem;
+  }
+  .heroSubheadline {
+    font-size: 1rem;
+  }
+  .heroButton {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+  .heroStatsRow {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .testimonialCard {
+    flex: 0 0 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroSection {
+    padding: 0 0 0 2vw;
+  }
+  .heroLeft {
+    padding: 1.2rem 0;
+  }
+  .section,
+  .newsletterSection {
+    padding: 1.2rem 0.5vw;
+  }
+  .heroSearchForm {
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .heroSearchButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  .testimonialCard {
+    flex: 0 0 100%;
+  }
+}
