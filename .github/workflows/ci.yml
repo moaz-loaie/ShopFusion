@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.16.0'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Type check
+      run: npm run typecheck || true # Optional, since we're not using TypeScript yet
+
+    - name: Test
+      run: npm run test:coverage
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        directory: ./client/coverage
+        flags: client
+
+    - name: Build
+      run: npm run build
+
+  server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: shopfusion_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.16.0'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run migrations
+      run: npm run migrate
+      env:
+        DB_HOST: localhost
+        DB_USER: root
+        DB_PASSWORD: rootpassword
+        DB_NAME: shopfusion_test
+        NODE_ENV: test
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Test
+      run: npm run test:coverage
+      env:
+        DB_HOST: localhost
+        DB_USER: root
+        DB_PASSWORD: rootpassword
+        DB_NAME: shopfusion_test
+        NODE_ENV: test
+        JWT_SECRET: test_secret
+        JWT_EXPIRES_IN: 1d
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        directory: ./server/coverage
+        flags: server
