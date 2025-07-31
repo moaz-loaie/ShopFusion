@@ -1,0 +1,155 @@
+.card {
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.content {
+  flex: 1;
+}
+
+.value {
+  margin: 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--color-text-tertiary);
+}
+
+.statusList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.statusItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+}
+
+.statusItem.colorgreen {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.statusItem.colororange {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.statusItem.colorred {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.statusValue {
+  font-weight: 600;
+}
+
+.statusLabel {
+  color: inherit;
+}
+
+.trend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.trend.up {
+  color: #2e7d32;
+}
+
+.trend.down {
+  color: #c62828;
+}
+
+.trend.neutral {
+  color: var(--color-text-secondary);
+}
+
+.trendIcon {
+  font-size: 1.1rem;
+}
+
+.trendValue {
+  font-weight: 500;
+}
+
+.trendLabel {
+  color: var(--color-text-secondary);
+}
+
+.action {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.action:hover {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .value {
+    font-size: 1.75rem;
+  }
+
+  .statusList {
+    flex-direction: column;
+  }
+
+  .statusItem {
+    width: fit-content;
+  }
+}

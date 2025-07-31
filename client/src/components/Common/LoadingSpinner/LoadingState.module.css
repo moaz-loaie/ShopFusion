@@ -1,0 +1,53 @@
+.errorContainer {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.errorContent {
+  text-align: center;
+}
+
+.errorMessage {
+  color: #dc3545;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.retryButton {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.retryButton:hover {
+  background-color: #0b5ed7;
+}
+
+/* Skeleton Loading Styles */
+.skeleton {
+  animation: pulse 1.5s infinite;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
