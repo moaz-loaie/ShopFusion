@@ -1,4 +1,4 @@
-const { User, Order } = require("../db").models; // Adjust path as necessary
+const { User, Order } = require("../db"); // Adjust path as necessary
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const { hashPassword, comparePassword } = require("../utils/passwordUtils");

@@ -1,4 +1,4 @@
-const { ShoppingCart, CartItem, Product, sequelize } = require("../db").models;
+const { ShoppingCart, CartItem, Product, sequelize } = require("../db");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const logger = require("../utils/logger");
