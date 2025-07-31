@@ -1,0 +1,60 @@
+version: 2
+updates:
+  # Client dependencies
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
+      - "client"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    versioning-strategy: increase-if-necessary
+    groups:
+      react:
+        patterns:
+          - "react*"
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - "jest*"
+
+  # Server dependencies
+  - package-ecosystem: "npm"
+    directory: "/server"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
+      - "server"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    versioning-strategy: increase-if-necessary
+    groups:
+      express:
+        patterns:
+          - "express*"
+      sequelize:
+        patterns:
+          - "sequelize*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"

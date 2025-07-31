@@ -1,0 +1,64 @@
+# CI/CD Pipeline for ShopFusion
+
+# This workflow automates linting, testing, building, and deployment for both backend and frontend using GitHub Actions.
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint || echo "No linter configured"
+      - name: Run unit and integration tests
+        run: npm test
+      - name: Build (if applicable)
+        run: npm run build || echo "No build step"
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint || echo "No linter configured"
+      - name: Run unit and integration tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Upload production build
+        uses: actions/upload-artifact@v4
+        with:
+          name: client-build
+          path: ./client/dist
+
+  deploy:
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Staging (placeholder)
+        run: echo "Deploy step here (e.g., Heroku, AWS, Vercel, etc.)"
