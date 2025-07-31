@@ -36,6 +36,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER, allowNull: false,
         references: { model: 'Users', key: 'id' }
     },
+    priority: {
+      type: DataTypes.ENUM('low', 'medium', 'high'),
+      allowNull: false,
+      defaultValue: 'low'
+    },
     dispute_reason: {
       type: DataTypes.TEXT, allowNull: false,
       validate: {
@@ -74,10 +79,12 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Disputes',
     timestamps: true,
     indexes: [
-      { fields: ['order_id'] },
       { fields: ['status'] },
+      { fields: ['priority'] },
+      { fields: ['order_id'] },
       { fields: ['raised_by_user_id'] },
-      { fields: ['resolved_by_user_id'] }
+      { fields: ['resolved_by_user_id'] },
+      { fields: ['createdAt'] }
     ]
   });
   return Dispute;
