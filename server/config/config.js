@@ -4,36 +4,37 @@ require("dotenv").config(); // Make sure .env is loaded
 
 module.exports = {
   development: {
-    username: process.env.DB_USER || "postgres",
-    password: process.env.DB_PASSWORD || null, // Allow null password for local dev if needed
+    username: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || null,
     database: process.env.DB_NAME || "shopfusion_dev",
     host: process.env.DB_HOST || "127.0.0.1",
-    port: process.env.DB_PORT || 5432,
-    dialect: "postgres",
+    port: process.env.DB_PORT || 3306,
+    dialect: "mysql",
     // Optional: Add logging configuration for development SQL queries
-    // "logging": console.log // Or use winston logger: require('../utils/logger').debug
+
     logging: false, // Disable default logging usually
-  },
-  test: {
-    username: process.env.DB_USER || "test_user", // Use specific test user
-    password: process.env.DB_PASSWORD || "test_password",
+  },  test: {
+    username: process.env.DB_USER || "root", // Use default root user
+    password: process.env.DB_PASSWORD || "", // Empty password
     database: process.env.DB_NAME || "shopfusion_test", // Use specific test database
     host: process.env.DB_HOST || "127.0.0.1",
-    port: process.env.DB_PORT || 5432,
-    dialect: "postgres",
+    port: process.env.DB_PORT || 3306,
+    dialect: "mysql",
     logging: false, // Disable logging for tests
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   },
   production: {
     // Use DATABASE_URL for platforms like Heroku, Render
     use_env_variable: "DATABASE_URL",
-    dialect: "postgres",
+    dialect: "mysql",
     logging: false, // Disable logging in production unless needed for debugging
     dialectOptions: {
-      ssl: {
-        require: true, // Require SSL for production databases
-        // Heroku/Render might require rejectUnauthorized: false, check provider docs
-        rejectUnauthorized: false,
-      },
+      // SSL options for MySQL (if needed)
     },
     // Optional: Production pool settings
     pool: {

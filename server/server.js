@@ -20,16 +20,25 @@ const orderRoutes = require("./routes/orderRoutes");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const settingsRoutes = require("./routes/settingsRoutes");
 
 const app = express();
 
 // --- Global Middleware ---
 
 // Trust proxy headers (important if behind Nginx, Heroku, etc.)
-app.enable("trust proxy");
+// app.enable("trust proxy");
 
 // 1) Security Headers (Helmet) - Apply sensible defaults
-app.use(helmet());
+if (process.env.NODE_ENV === "production") {
+  app.use(helmet());
+} else {
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+    })
+  );
+}
 // Further Helmet configuration (e.g., Content Security Policy) can be added:
 // app.use(helmet.contentSecurityPolicy({ directives: { /* ... */ } }));
 
@@ -74,6 +83,7 @@ app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
+app.use("/api/v1/settings", settingsRoutes);
 
 // --- Frontend Serving (Production Only) ---
 if (process.env.NODE_ENV === "production") {
