@@ -1,0 +1,411 @@
+.dashboardContainer {
+  display: grid;
+  grid-template-areas: 'nav main';
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+}
+
+.dashboardNav {
+  grid-area: nav;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+  position: sticky;
+  top: 1rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.navItem:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.navItem.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.navIcon {
+  font-size: 1.25rem;
+}
+
+.navLabel {
+  font-weight: 500;
+}
+
+.container {
+  grid-area: main;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.headerContent h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.headerActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.addButton:hover {
+  background: var(--primary-dark);
+}
+
+.refreshButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg-section);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.refreshButton:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+}
+
+.section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.performanceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.attentionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.alert {
+  background: var(--warning-light);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--warning-color);
+}
+
+.alertWarning {
+  background: var(--danger-light);
+  border-left-color: var(--danger-color);
+}
+
+.recentActivityGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-color);
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.activityItem:hover {
+  background: var(--bg-hover);
+}
+
+.activityIcon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.activityContent {
+  flex: 1;
+}
+
+.activityContent h4 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.activityContent p {
+  margin: 0.25rem 0;
+  color: var(--text-secondary);
+}
+
+.activityContent time {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+.activityAction {
+  padding: 0.5rem 1rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.activityAction:hover {
+  background: var(--primary-light);
+}
+
+.ratingBanner {
+  padding: 1rem;
+  background: var(--color-bg-accent);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stars {
+  color: #ffd700;
+  font-size: 1.2rem;
+}
+
+.ratingText {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.chartSection {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.recentOrdersList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.orderCard {
+  padding: 1rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.orderCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.orderId {
+  font-weight: 500;
+}
+
+.orderStatus {
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.orderStatus.completed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.orderStatus.processing {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.orderStatus.cancelled {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.orderInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.orderTotal {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.noOrders {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  color: var(--color-text-secondary);
+}
+
+.viewAllLink {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 1rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.viewAllLink:hover {
+  color: var(--color-primary-dark);
+}
+
+.loadingState,
+.errorState {
+  text-align: center;
+  padding: 3rem;
+}
+
+.retryButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background: var(--color-primary-dark);
+}
+
+@media screen and (max-width: 768px) {
+  .dashboardContainer {
+    grid-template-areas: 
+      'nav'
+      'main';
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .dashboardNav {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+
+  .navItem {
+    flex: 0 0 auto;
+  }
+
+  .performanceGrid,
+  .attentionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .headerContent h1 {
+    font-size: 1.5rem;
+  }
+
+  .section h2 {
+    font-size: 1.25rem;
+  }
+
+  .ratingBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .chartSection {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .recentOrdersList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dashboardContainer {
+    padding: 0.5rem;
+  }
+
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .refreshButton {
+    width: 100%;
+  }
+}
