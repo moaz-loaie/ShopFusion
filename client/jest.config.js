@@ -1,11 +1,14 @@
 // File: client/jest.config.js
-module.exports = {
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+export default {
   // The root of your source code, typically /src
   roots: ['<rootDir>/src'],
 
   // Jest transformations
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest', // Use babel-jest for JS/JSX files
+    '^.+\\.(js|jsx)$': require.resolve('babel-jest'), // Use babel-jest for JS/JSX files
     // If using TypeScript: '^.+\\.tsx?$': 'ts-jest',
   },
 
@@ -34,12 +37,12 @@ module.exports = {
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
-    '!src/index.js',            // Exclude main entry point
-    '!src/reportWebVitals.js',  // Exclude Create React App specific file
-    '!src/setupTests.js',       // Exclude test setup file
-    '!src/utils/logger.js',     // Exclude simple logger utility if not complex
-    '!src/**/index.js',         // Exclude barrel files if they only re-export
-    '!src/App.js',              // App.js is mostly routing, better tested with E2E
+    '!src/index.js', // Exclude main entry point
+    '!src/reportWebVitals.js', // Exclude Create React App specific file
+    '!src/setupTests.js', // Exclude test setup file
+    '!src/utils/logger.js', // Exclude simple logger utility if not complex
+    '!src/**/index.js', // Exclude barrel files if they only re-export
+    '!src/App.js', // App.js is mostly routing, better tested with E2E
     // Exclude __tests__ folders and test files themselves
     '!src/**/__tests__/**/*.{js,jsx}',
     '!src/**/*.{test,spec}.{js,jsx}',
@@ -82,10 +85,11 @@ module.exports = {
   coverageReporters: ['json', 'lcov', 'text', 'clover', 'html'],
 
   // Options for watch mode
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
-  ],
+  // Remove watchPlugins if present, as it causes errors in ESM Jest config
+  // watchPlugins: [
+  //   'jest-watch-typeahead/filename',
+  //   'jest-watch-typeahead/testname',
+  // ],
   // Automatically reset mock state before every test call.
   resetMocks: true,
 };
