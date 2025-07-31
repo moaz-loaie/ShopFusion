@@ -1,0 +1,198 @@
+.productListGrid {
+  display: grid;
+  margin: 0 auto;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+  background: var(--color-bg-section, #fff);
+  border-radius: var(--radius, 12px);
+  box-shadow: var(--shadow-card, 0 2px 8px rgba(0, 0, 0, 0.06));
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1400px;
+  min-height: 200px;
+  position: relative;
+  container-type: inline-size;
+  container-name: product-list;
+}
+
+/* Carousel layout */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+  gap: 1.5rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.carousel .productCardWrapper {
+  flex: 0 0 auto;
+  width: 280px;
+  scroll-snap-align: start;
+  min-width: 280px;
+  max-width: 320px;
+  width: calc(100vw - 3rem);
+}
+
+.productCardWrapper {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 8px;
+  background: #fff;
+  height: 100%;
+}
+
+/* Container query based styles */
+@container product-list (width < 600px) {
+  .productCardWrapper {
+    width: 100%;
+  }
+}
+
+/* Dynamic gaps based on container width */
+@container product-list (width < 900px) {
+  .productListGrid {
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+/* Ensure product cards maintain aspect ratio */
+.productCardWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+/* Product grid layout adjustments */
+.productListGrid:not(.carousel) {
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+}
+
+/* Carousel layout improvements */
+.carousel {
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(200px, 30%, 320px);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel .productCardWrapper {
+  scroll-snap-align: start;
+}
+
+/* Carousel Navigation Buttons */
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary, #2563eb);
+  color: white;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.9;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselButton:hover {
+  opacity: 1;
+  background: var(--color-primary-dark, #1d4ed8);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carouselButton.prev {
+  left: -20px;
+}
+
+.carouselButton.next {
+  right: -20px;
+}
+
+@media (max-width: 640px) {
+  .carouselButton {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  .carouselButton.prev {
+    left: -16px;
+  }
+
+  .carouselButton.next {
+    right: -16px;
+  }
+}
+
+/* Responsive padding and gaps */
+@media (max-width: 640px) {
+  .productListGrid {
+    padding: 0.75rem;
+  }
+  
+  .carousel {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .productListGrid {
+    padding: 0.5rem;
+  }
+  
+  .carousel {
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Loading and Empty States */
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.emptyStateIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.emptyState h3 {
+  color: #343a40;
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.emptyState p {
+  color: #6c757d;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}

@@ -1,0 +1,301 @@
+.filterWrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.filterContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+/* Price range takes up 2 columns */
+.filterGroup:nth-child(2) {
+  grid-column: span 2;
+}
+
+.filterContainer.loading {
+  opacity: 0.7;
+  filter: grayscale(20%);
+  pointer-events: none;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0; /* Prevent overflow in grid */
+}
+
+.filterLabel {
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.filterSelect,
+.filterInput {
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--color-border, #e5e7eb);
+  font-size: 1.05rem;
+  background: #fff;
+  color: var(--color-text, #22223b);
+  transition: border 0.18s, box-shadow 0.18s;
+}
+
+.filterSelect:focus,
+.filterInput:focus {
+  border-color: var(--color-primary, #2563eb);
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.priceInputs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.priceInput {
+  width: 100%;
+  min-width: 100px;
+  max-width: 150px;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.priceSeparator {
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.applyButton {
+  padding: 0.6rem 1.2rem;
+  background: var(--color-primary, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.applyButton:hover {
+  background: var(--color-primary-dark, #1e40af);
+}
+
+.applyButton:active {
+  transform: translateY(1px);
+}
+
+/* Status filter styling */
+.filterSelect[name="status"] {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.filterSelect[name="status"] option[value="all"] {
+  font-weight: 600;
+}
+
+.filterSelect[name="status"] option[value="approved"] {
+  color: var(--color-success, #059669);
+}
+
+.filterSelect[name="status"] option[value="pending"] {
+  color: var(--color-warning, #d97706);
+}
+
+.filterSelect[name="status"] option[value="rejected"] {
+  color: var(--color-danger, #dc2626);
+}
+
+.filterSelect[name="status"] option[value="mine"] {
+  color: var(--color-primary, #2563eb);
+  font-weight: 600;
+}
+
+/* Error message styling */
+.errorMessage {
+  background: var(--color-danger-light, #fee2e2);
+  color: var(--color-danger, #dc2626);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Loading overlay styling */
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+.loadingSpinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-primary, #2563eb);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Update disabled state styles */
+.filterSelect:disabled,
+.filterInput:disabled,
+.priceInput:disabled {
+  background: var(--color-bg-disabled, #f3f4f6);
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.applyButton:disabled {
+  background: var(--color-primary-light, #93c5fd);
+  cursor: not-allowed;
+}
+
+/* Improved price filter inputs */
+.priceInputs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.priceInput {
+  width: 100%;
+  min-width: 100px;
+  max-width: 150px;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Make filter selects more visible */
+.filterSelect {
+  background-color: white;
+  border: 1.5px solid var(--color-border, #e5e7eb);
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+.filterSelect:hover:not(:disabled) {
+  border-color: var(--color-primary, #2563eb);
+}
+
+/* Status badge colors in the select */
+.filterSelect[name="status"] {
+  font-weight: 500;
+}
+
+.filterSelect[name="status"] option {
+  padding: 8px 12px;
+  margin: 4px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .filterContainer {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .filterGroup:nth-child(2) {
+    grid-column: auto; /* Reset price range span on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .filterContainer {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .priceInputs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .priceSeparator {
+    display: none;
+  }
+
+  .priceActions {
+    grid-column: span 2;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .applyButton,
+  .resetButton {
+    flex: 1;
+  }
+}
+
+/* Loading state improvements */
+.filterContainer.loading {
+  opacity: 0.8;
+  filter: grayscale(20%);
+}
+
+.loadingOverlay {
+  backdrop-filter: blur(2px);
+}
+
+/* Focus styles */
+.filterSelect:focus,
+.priceInput:focus {
+  outline: none;
+  border-color: var(--color-primary, #2563eb);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}

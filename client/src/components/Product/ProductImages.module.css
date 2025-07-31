@@ -1,0 +1,94 @@
+/* ProductImages.module.css - Modern, responsive gallery for product detail page */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 1.2rem;
+  background: var(--color-bg-section);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 1.2rem;
+}
+
+.mainImageWrapper {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: var(--color-bg-secondary, #f7f7f7);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 320px;
+  max-height: 520px;
+  border: 1.5px solid #e5e7eb;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #fff;
+  transition: box-shadow 0.2s;
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.thumbnail {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background: #f7f7f7;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.thumbnail.selected {
+  border: 2px solid var(--color-primary, #0070f3);
+  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.08);
+}
+
+.thumbnail:hover {
+  border: 2px solid var(--color-primary, #0070f3);
+  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.12);
+}
+
+@media (max-width: 900px) {
+  .mainImageWrapper {
+    min-height: 220px;
+    max-height: 320px;
+  }
+  .thumbnail {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-width: 600px) {
+  .mainImageWrapper {
+    min-height: 140px;
+    max-height: 220px;
+    border-radius: 8px;
+  }
+  .mainImage {
+    border-radius: 8px;
+  }
+  .thumbnail {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+  }
+}
