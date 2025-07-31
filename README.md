@@ -1,5 +1,9 @@
 # ShopFusion
 
+[![CI/CD Pipeline](https://github.com/your-org/ShopFusion/actions/workflows/main.yml/badge.svg)](https://github.com/your-org/ShopFusion/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/your-org/ShopFusion/branch/main/graph/badge.svg)](https://codecov.io/gh/your-org/ShopFusion)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 ShopFusion is a cutting-edge e-commerce platform inspired by industry leaders like Amazon. Our goal is to deliver a robust, scalable, and user-friendly online shopping experience that caters to guests, registered customers, sellers, and administrators—with seamless mobile integration.
 
 ## Overview
@@ -54,3 +58,101 @@ Our design assets for ShopFusion are organized within the `docs/design` director
 
 For additional design iterations and interactive prototypes, please refer to our Figma designs:  
 [See the Figma Design Dashboard](docs/design/figma/)
+
+## Features
+
+- 🛍️ Role-based product management
+- 📊 Advanced dashboards for admins and sellers
+- 🔒 Secure authentication and authorization
+- 📱 Fully responsive design
+- 🚀 Optimized performance
+- 🧪 Comprehensive test coverage
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js v18+
+- MySQL 8.0+
+- Docker (optional)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-org/ShopFusion.git
+   cd ShopFusion
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   npm install -w client
+   npm install -w server
+   ```
+
+3. Set up environment variables:
+
+   ```bash
+   cp .env.example .env
+   cp client/.env.example client/.env
+   cp server/.env.example server/.env
+   ```
+
+4. Set up the database:
+
+   ```bash
+   npm run db:migrate -w server
+   npm run db:seed -w server
+   ```
+
+5. Start the development servers:
+
+   ```bash
+   npm run dev -w client    # Start client on http://localhost:5173
+   npm run dev -w server    # Start server on http://localhost:3000
+   ```
+
+### Running Tests
+
+```bash
+# Run all tests with coverage
+npm run test:coverage -w client
+npm run test:coverage -w server
+
+# Run tests in watch mode
+npm run test:watch -w client
+npm run test:watch -w server
+```
+
+### Docker Deployment
+
+```bash
+# Development
+docker-compose up
+
+# Production
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+## Documentation
+
+- [API Documentation](docs/API_SPEC.md)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+
+## Architecture
+
+The application follows a modern microservices architecture:
+
+- **Frontend**: React with Vite, React Router, and modern CSS
+- **Backend**: Express.js REST API with JWT authentication
+- **Database**: MySQL with Sequelize ORM
+- **Testing**: Jest, React Testing Library, and Supertest
+- **CI/CD**: GitHub Actions with automated testing and deployment
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
