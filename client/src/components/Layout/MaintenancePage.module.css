@@ -1,0 +1,42 @@
+.maintenancePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+  background: #f8f9fa;
+}
+
+.maintenanceIcon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.maintenanceTitle {
+  font-size: 2.5rem;
+  color: #343a40;
+  margin-bottom: 1.5rem;
+}
+
+.maintenanceMessage {
+  font-size: 1.2rem;
+  color: #6c757d;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.adminLoginLink {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.adminLoginLink:hover {
+  background-color: #0056b3;
+}
