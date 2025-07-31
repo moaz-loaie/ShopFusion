@@ -1,0 +1,145 @@
+.errorContainer {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--surface-background);
+}
+
+.content {
+  text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.illustration {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.errorCode {
+  font-size: 8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title {
+  font-size: var(--font-size-xxl);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.message {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.actionButton,
+.retryButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.actionButton {
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+}
+
+.actionButton:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.retryButton {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.retryButton:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+/* Animation for the error code */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorCode,
+.title,
+.message {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.title {
+  animation-delay: 0.2s;
+}
+
+.message {
+  animation-delay: 0.4s;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .errorContainer {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  .errorCode {
+    font-size: 6rem;
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  .message {
+    font-size: var(--font-size-base);
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actionButton,
+  .retryButton {
+    width: 100%;
+  }
+}
